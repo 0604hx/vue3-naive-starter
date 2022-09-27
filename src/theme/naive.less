@@ -1,0 +1,19 @@
+// tailwind 会覆盖背景色，导致按钮背景色为纯白，此处强制使用主题色
+.n-button {
+    background-color: var(--n-color);
+}
+
+svg {
+    &.icon {
+        height: 1em !important;
+        display: inline-block;
+        margin-top: -2px;
+    }
+}
+
+.n-menu-item-content__icon {
+    svg {
+        display: block;
+        margin-top: 0px !important;
+    }
+}
