@@ -45,7 +45,7 @@
 <style lang="less">
     .default-background {
         .layout {
-            background: #fafafa !important;
+            /* background: #fafafa !important; */
         }
     }
 </style>

@@ -2,7 +2,7 @@
     <n-space>
         <n-date-picker v-model:formatted-value="day" value-format="yyyy-MM-dd" style="width: 140px;" clearable />
     </n-space>
-    <n-table class="mt-2 w-full text-center meeting" size="small" :bordered="false" :bottom-bordered="true" :single-column="true" striped>
+    <n-table class="mt-2 w-full text-center meeting" size="small" :bordered="true" :bottom-bordered="true" :single-column="true" striped>
         <thead>
             <tr>
                 <th width="auto">时间</th>

@@ -14,7 +14,7 @@ let loginRouter = [
 let appRouter = {
     path: "/",
     name: "main",
-    redirect: "/demo-index",
+    redirect: "/demo-home",
     component: Main,
     children: [
         { path: '/demo-home', name: 'demo-home', component: () => import('@V/demo/Index.vue') },
@@ -28,7 +28,7 @@ let appRouter = {
 }
 
 let blankRouter = {
-    path: '',
+    path: '/',
     component: WindowView,
     children: [
     ]

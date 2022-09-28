@@ -135,7 +135,7 @@ window.RESULT=(url,data,onOk,onFail, useJson=true, headers={})=>{
  * 使用 axios 上传文件
  * 需要设置头部
  */
- window.UPLOAD = (url, data, onOk, onFail)=>{
+window.UPLOAD = (url, data, onOk, onFail)=>{
     let form = new FormData()
     Object.keys(data).forEach(k=> form.append(k, data[k]))
     RESULT(url, form, onOk, onFail, true, {'Content-Type': "multipart/form-data"})
@@ -160,7 +160,7 @@ window.RESULT=(url,data,onOk,onFail, useJson=true, headers={})=>{
  * @param useGet    是否使用 GET 方式下载
  * @constructor
  */
- window.DOWNLOAD=(url, data, onOk, onFail,json=false, fName=null, useGet=false)=>{
+window.DOWNLOAD=(url, data, onOk, onFail,json=false, fName=null, useGet=false)=>{
     let form = new FormData()
     let headers = {}
     if(json){

@@ -10,6 +10,7 @@
  */
 
 import { createVNode } from "vue"
+import { RouterLink } from "vue-router"
 import { NButton } from "naive-ui"
 
 import { NIcon } from 'naive-ui'
@@ -17,6 +18,7 @@ import { NIcon } from 'naive-ui'
 let buildIcon= (icon, ps={})=>{
     return createVNode(NIcon, Object.assign({component: icon}, ps))
 }
+let buildIcon2 = (icon, ps)=> ()=> buildIcon(icon, ps)
 
 /**
  * 创建按钮
@@ -47,9 +49,7 @@ window.H = window.H || {
      * @returns
      */
     buildIcon,
-    buildIcon2 (icon, ps){
-        return ()=> buildIcon(icon, ps)
-    },
+    buildIcon2,
     Button,
     /**
      * 创建圆形仅含图标的按钮，默认值：size=small circle=true quaternary=true
@@ -60,6 +60,21 @@ window.H = window.H || {
      */
     iconBtn (icon, onClick, ps={}){
         return Button(icon, null, onClick, Object.assign({ quaternary:true, circle: true, size: 'small'}, ps))
+    },
+    /**
+     * 生成菜单项
+     * @param {*} routeName 路由名称或者路由对象
+     * @param {*} text      菜单文本
+     * @param {*} icon      图标
+     * @returns
+     */
+    menuItem (routeName, text, icon){
+        let to = typeof(routeName)==='string'? { name: routeName }: routeName
+        return {
+            label: () => createVNode(RouterLink, { to }, ()=>text),
+            key: to.name,
+            icon: buildIcon2(icon)
+         }
     },
     html (html){
         return ()=>createVNode('div', {innerHTML: html })

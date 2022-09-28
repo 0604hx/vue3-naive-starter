@@ -2,6 +2,8 @@ const path = require('path')
 const fs = require('fs')
 const webpack = require('webpack')
 
+const isProduction = process.env.NODE_ENV == 'production'
+
 const pkg = require("./package.json")
 const moduleName = process.env.npm_config_module||""
 if(moduleName)  console.debug(`指定模块为 ${moduleName} （将影响到具体的路由、MOCK 等）`)
@@ -34,10 +36,13 @@ let devServer = {
 }
 
 let pages = {
-    client: {
-        entry: 'src/pages/client/main.js',
-        template: 'public/index.html',
-        filename: 'client/client.html',
+    index: {
+        entry: 'src/main.js'
+    },
+    meeting: {
+        entry: 'src/pages/meeting/main.js',
+        // template: 'public/index.html',
+        // filename: 'client/client.html',
         // chunks: ['chunk-vendors', 'chunk-common', 'client']
     }
 }
@@ -46,6 +51,7 @@ let pages = {
  * @type {import('@vue/cli-service').ProjectOptions}
  */
 module.exports = {
+    pages,
     productionSourceMap: false,
     configureWebpack: config => {
         config.resolve = {
@@ -57,11 +63,11 @@ module.exports = {
                 '@C'            : resolve("src/components"),                    //常用组件
                 '@CN'           : resolve("src/components/naive-ui"),           //常用组件（适配 NaiveUI）
                 '@CC'           : resolve("src/components/common"),             //常用组件（通用）
+                '@CM'           : resolve("src/components/mixin"),              //mixin 组件
+                '@Pagination'   : resolve("src/components/mixin/Pagination"),
                 '@V'            : resolve("src/views"),                         //视图目录
                 '@Store'        : resolve("src/store"),
                 '@S'            : resolve("src/service"),                       //接口相关
-                '@SM'           : resolve("src/service/mixin"),                 //mixin 组件
-                '@Pagination'   : resolve("src/service/mixin/Pagination"),
                 '@T'            : resolve("src/theme"),                         //主题相关
                 '@U'            : resolve("src/util")                           //通用工具
             }
@@ -88,13 +94,15 @@ module.exports = {
     },
     devServer,
     chainWebpack: (config) => {
-        // 在 html 中注入参数变量
-        config.plugin('html').tap((args) => {
-            // 在这里
-            args[0].title = `${pkg.appName}`
-            args[0].version = VERSION
-            return args
-        })
+        if(isProduction){
+            // 在 html 中注入参数变量
+            config.plugin('html').use(require("html-webpack-plugin")).tap((args) => {
+                // 在这里
+                args[0].title = `${pkg.appName}`
+                args[0].version = VERSION
+                return args
+            })
+        }
         return config
     }
 }
