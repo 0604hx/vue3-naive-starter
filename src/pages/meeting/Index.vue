@@ -13,7 +13,7 @@
         </thead>
         <tbody>
             <tr v-for="room in rooms">
-                <th>{{room.name}}</th>
+                <th>{{room.label}}</th>
                 <td v-for="item in room.cells" :style="{background: item.color}" :colspan="item.span" class="event" :class="{empty:!item.begin}">
                     <template v-if="item.begin">
                         <n-popover trigger="hover" placement="bottom">
@@ -33,7 +33,9 @@
 </template>
 
 <script setup>
-    import { ref, onMounted } from 'vue'
+    import { ref, onMounted, createVNode } from 'vue'
+
+    import MeetingEditor from "./widget/meeting-edit.vue"
 
     const colors = ['#2ec7c9', '#b6a2de', '#5ab1ef', '#ffb980', '#d87a80', '#8d98b3', '#e5cf0d', '#97b552', '#95706d', '#dc69aa', '#07a2a4', '#9a7fd1', '#588dd5', '#f5994e', '#c05050', '#59678c', '#c9ab00', '#7eb00a', '#6f5553', '#c14089']
     let hours = ref([])
@@ -74,23 +76,18 @@
 
     let toCreate = (room, time)=>{
         M.info(`创建${room.name}于${time}开始的会议`)
+
+        let bean = {begin: time}
+        M.dialog({
+            style:{width:"640px"},
+            title:"会议室预约",
+            content: ()=> createVNode(MeetingEditor, {rooms, bean, hours})
+        })
     }
 
     onMounted(()=>{
-        init({
-            hourBegin: 9,
-            hourEnd: 20,
-            rooms: [...new Array(10).keys()].map(v=>{
-                let name = `${v+1} 楼会议室`
-                let begin = `${toHour(9+Math.floor(Math.random()*10))}:00`
-                return {
-                    name,
-                    color: "#18a058",//colors[v],
-                    items:[
-                        { begin, cell: Math.ceil(Math.random()*4), title: `${name}（${begin})` }
-                    ]
-                }
-            })
+        RESULT("/booking/meeting/overview", {}, d=>{
+            init(d.data)
         })
     })
 </script>
