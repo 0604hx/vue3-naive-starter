@@ -21,5 +21,18 @@ special|特殊|boolean|是|false|是否为特殊房间，需要管理员审核�
 summary|说明|String|否||详细说明信息
 
 ## 预约
+> 任意用户均可操作
+
+字段名|类型|非空|默认值|说明
+-|-|-|-|-|-
+title|String|是||会议主题
+roomId|String|是||会议室编号
+uid|String|是||预约人ID
+uname|String|是||预约人名称
+begin|String|是||开始时间，格式为 HH:mm
+end|String|是||结束时间，格式为 HH:mm
+cell|int|是|1|持续时段（按半小时一个时段计算），系统自动计算
+status|int|是|0|状态，0=待确认，1=已确认，2=已取消
+summary|String|否||备注信息
 
 ## 预约总览

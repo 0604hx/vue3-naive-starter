@@ -8,7 +8,7 @@
         的快速开发脚手架。
     </n-card>
 
-    <n-card class="mt-3">
+    <n-card class="mt-4">
         <template #header><Bell class="icon" /> 消息提醒</template>
 
         框架对
@@ -32,11 +32,24 @@
             </n-button>
         </n-space>
     </n-card>
+
+    <n-card class="mt-4">
+        <template #header><Windows class="icon" /> 多页面</template>
+
+        <n-space size="large" class="text-center">
+            <n-card size="small" class="cursor-pointer" hoverable @click="jump('meeting.html')">
+                <template #cover>
+                    <img style="width:140px" src="@P/imgs/meeting.svg">
+                </template>
+                会议室预约系统
+            </n-card>
+        </n-space>
+    </n-card>
 </template>
 
 <script setup>
     import { ref,onMounted } from 'vue'
-    import { Cog, InfoCircle,Bell, CommentRegular,CommentAltRegular,WindowMaximize } from "@vicons/fa"
+    import { Cog, InfoCircle,Bell, CommentRegular,CommentAltRegular,WindowMaximize, Windows } from "@vicons/fa"
 
     let showMessage = text=> M.ok(text)
     let showNotice = ()=> M.notice.ok('后台作业已完成，共耗时 13.4 秒，请刷新页面以查看结果', '操作完成')
@@ -52,6 +65,9 @@
         <div class="mt-2"><b class="text-green-600">响应性</b>：Vue 会自动跟踪 JavaScript 状态变化并在改变发生时响应式地更新 DOM。</div>
         `)
     })
+    let jump = url=>{
+        location.href = url
+    }
 
     onMounted(() => {
 
