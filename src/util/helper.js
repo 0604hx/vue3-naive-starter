@@ -2,7 +2,7 @@
  * @Author: 0604hx/集成显卡
  * @Date: 2022-03-20 22:39:28
  * @Last Modified by: 集成显卡
- * @Last Modified time: 2022-08-02 15:13:17
+ * @Last Modified time: 2022-09-30 12:29:02
  *
  * 本工具类主要是提供组件创建功能
  *
@@ -74,7 +74,20 @@ window.H = window.H || {
             label: () => createVNode(RouterLink, { to }, ()=>text),
             key: to.name,
             icon: buildIcon2(icon)
-         }
+        }
+    },
+    /**
+     * 转换为 naive-ui 兼容的 SelectOption
+     * @param {*} list
+     */
+    toOptions (list, disableFun=()=>false){
+        return (Array.isArray(list)? list:[list]).map(v=>{
+            return {
+                label:v,
+                value:v,
+                disabled: disableFun(v)
+            }
+        })
     },
     html (html){
         return ()=>createVNode('div', {innerHTML: html })

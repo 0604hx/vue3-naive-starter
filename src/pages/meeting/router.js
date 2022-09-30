@@ -11,6 +11,7 @@ let appRouter = {
     children: [
         { path: '/home', name: 'home', component: () => import('@/pages/meeting/Index.vue') },
         { path: '/room', name: 'room', component: () => import('@/pages/meeting/Room.vue') },
+        { path: '/meeting', name: 'meeting', component: () => import('@/pages/meeting/Meeting.vue') },
 
         { path: '/401', name: "401", component: () => import('@V/@COMMON/401.vue') },
         { path: '/403', name: "403", component: () => import('@V/@COMMON/403.vue') },

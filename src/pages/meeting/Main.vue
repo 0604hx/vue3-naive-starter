@@ -17,7 +17,7 @@
 
 <script setup>
     import { ref, createVNode } from 'vue'
-    import { Home, LaptopHouse } from "@vicons/fa"
+    import { Home, LaptopHouse, ClockRegular } from "@vicons/fa"
 
     import Banner from "@CC/Banner.vue"
     import AppNavigation from "@C/Navigation.vue"
@@ -25,5 +25,6 @@
     let menus = [
         H.menuItem("home", "首页", Home),
         H.menuItem("room", "会议室管理", LaptopHouse),
+        H.menuItem("meeting", "预约审核", ClockRegular),
     ]
 </script>

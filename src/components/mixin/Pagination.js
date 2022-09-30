@@ -10,6 +10,7 @@
 import { ref, onMounted,reactive, createVNode } from 'vue'
 
 export default (api, autoLoad=true, loader=undefined)=>{
+    let ps = typeof(api) == 'object'? api: {url: api, form:{}}
     let beans = ref([])
     let pagination = reactive({
         loading: false,
@@ -28,16 +29,16 @@ export default (api, autoLoad=true, loader=undefined)=>{
             refresh()
         }
     })
-    let form = ref({})
+    let form = ref(ps.form||{})
 
     let refresh = loader || function(){
         let p = {page: pagination.page, pageSize: pagination.pageSize}
         pagination.loading = true
-        RESULT(api, {form: form.value, pagination: p}, d=>{
+        RESULT(ps.url, {form: form.value, pagination: p}, d=>{
             beans.value = d.data
             pagination.itemCount = d.total
             pagination.loading = false
-            console.debug(`分页信息加载完成`, api, d)
+            console.debug(`分页信息加载完成`, ps.url, d)
         })
     }
 

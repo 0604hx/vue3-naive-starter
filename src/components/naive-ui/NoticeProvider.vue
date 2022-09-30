@@ -56,7 +56,7 @@
             }
         },
         confirm (title="操作确认", content, onOk, onCancel){
-            dialog.warning({
+            return  dialog.warning({
                 title,
                 content,
                 positiveText: "确定",
@@ -73,7 +73,7 @@
          * 详见 https://www.naiveui.com/zh-CN/light/components/dialog#DialogOptions-Properties
          */
         dialog (ps={title:"操作确认"}){
-            dialog.create(ps)
+            return dialog.create(ps)
         },
         closeDialog (){
             dialog.destroyAll()

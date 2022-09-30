@@ -41,6 +41,15 @@ window.D = window.D || {
     },
     endOf (key="month"){
         return dayjs().endOf(key).format(YMD)
+    },
+    /**
+     * 获取两个日期相差的值，默认为天数
+     * @param {*} from
+     * @param {*} to
+     * @param {*} type
+     */
+    diff (from, to, type="day"){
+        return dayjs(from).diff(dayjs(to), type)
     }
 }
 

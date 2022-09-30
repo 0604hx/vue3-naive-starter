@@ -1,8 +1,8 @@
 /*
  * @Author: 集成显卡
  * @Date: 2021-09-16 16:17:29
- * @Last Modified by: 0604hx/集成显卡
- * @Last Modified time: 2022-09-29 23:25:06
+ * @Last Modified by: 集成显卡
+ * @Last Modified time: 2022-09-30 16:06:28
  */
 const ROOMS     = "meeting.room"
 const MEETINGS  = "meeting.list"
@@ -43,6 +43,8 @@ export default {
     会议预约相关
     */
     'meeting/overview': opts=>{
+        let day = JSON.parse(opts.body).day
+        let mList = meetings().filter(m=>m.day==day)
         return {
             hourBegin: 9,
             hourEnd: 20,
@@ -53,18 +55,32 @@ export default {
                     label,
                     value: v.id,
                     color: "#18a058",//colors[v],
-                    items:[
-                        { begin, cell: Math.ceil(Math.random()*4), title: `${name}（${begin})` }
-                    ]
+                    items: mList.filter(m=>m.roomId==v.id)
                 }
             })
         }
     },
     'meeting/list': opts=>{
-        return []
+        return meetings()
     },
+    'meeting/mine': opts=>{
+        return meetings()
+    },
+    //提交会议预约，不做冲突处理
     'meeting/add': opts=>{
+        let m = JSON.parse(opts.body)
+        let room = getRooms().filter(v=>v.id==m.roomId)[0]
+        if(!room)   throw Error(`会议室 ${m.roomId} 不存在`)
 
+        m.uid   = "admin"
+        m.uname = "集成显卡(admin)"
+        m.room  = room.name
+        m.status = room.special? 0 : 1
+        m.createOn = D.date()
+        let list = meetings()
+        list.push(m)
+
+        Store.setList(MEETINGS, list)
     },
     'meeting/delete': opts=>{
 
