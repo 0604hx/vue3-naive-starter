@@ -1,6 +1,6 @@
 <template>
     <n-space>
-        <n-input v-model:value="form.LIKE_name" placeholder="会议室名称" clearable />
+        <n-input v-model:value="form.LIKE_name" placeholder="会议室" clearable />
         <n-button secondary circle type="success" @click="refresh">
             <template #icon> <n-icon :component="Search" /> </template>
         </n-button>
