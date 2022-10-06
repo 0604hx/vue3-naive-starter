@@ -8,7 +8,7 @@ const COLOR = `color:white;background:green;padding:0 10px 0 10px`
 
 // 设置拦截ajax请求的相应时间
 Mock.setup({
-    timeout: '500-1000'
+    timeout: '100-300'
 })
 
 let configArray = []

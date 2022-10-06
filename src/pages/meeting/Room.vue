@@ -9,7 +9,7 @@
     <n-data-table class="mt-2" :columns="columns" :bordered="true" striped :pagination="pagination" :remote="true" :loading="pagination.loading" :data="beans" :style="{height}" flex-height>
     </n-data-table>
 
-    <RoomEdit ref="editor" />
+    <RoomEdit ref="editor" @create="refresh" />
 </template>
 
 <script setup>
@@ -62,7 +62,7 @@
         "删除会议室",
         H.html(`确定删除会议室 ⌈${row.name}⌋ 吗？ <div class="mt-3">注意：该操作不可逆，请慎重操作</div>`),
         ()=>{
-            RESULT("/booking/room/delete", row.id, d=> {
+            RESULT("/booking/room/delete", {id: row.id}, d=> {
                 M.notice.ok(`会议室${row.name}已删除`)
                 beans.value.splice(i, 1)
             })

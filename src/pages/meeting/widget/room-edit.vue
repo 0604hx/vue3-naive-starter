@@ -64,6 +64,7 @@
             RESULT("/booking/room/add", bean.value, d=>{
                 M.notice.ok(`会议室已保存`)
                 show.value = false
+                if(isNew.value) emits("create")
             })
         })
     }

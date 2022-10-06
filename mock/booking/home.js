@@ -1,8 +1,8 @@
 /*
  * @Author: 集成显卡
  * @Date: 2021-09-16 16:17:29
- * @Last Modified by: 集成显卡
- * @Last Modified time: 2022-09-30 16:06:28
+ * @Last Modified by: 集成显卡/0604hx
+ * @Last Modified time: 2022-10-06 10:46:21
  */
 const ROOMS     = "meeting.room"
 const MEETINGS  = "meeting.list"
@@ -10,6 +10,7 @@ const MEETINGS  = "meeting.list"
 let getRooms    = ()=> Store.getList(ROOMS)
 let meetings    = ()=> Store.getList(MEETINGS)
 let toHour      = i=>i<10?("0"+i):i
+let getId       = opts=> JSON.parse(opts.body).id
 
 export default {
     'overview': opts=>{
@@ -32,10 +33,11 @@ export default {
         Store.setList(ROOMS, rooms)
     },
     'room/delete': opts=>{
-        let rooms = getRooms()
-        let index = rooms.indexOf(r=> r.id==opts.body.id)
+        let id      = getId(opts)
+        let rooms   = getRooms()
+        let index   = rooms.map(r=>r.id).indexOf(id)
         if(index > -1)
-            rooms.slice(index, 1)
+            rooms.splice(index, 1)
 
         Store.setList(ROOMS, rooms)
     },
