@@ -44,14 +44,14 @@ npm run build
 </div>
 
 <center>
-    <img src="docs/screenshot/demo-home.png" width="49%" />
-    <img src="docs/screenshot/demo-icons.png" width="49%" />
+    <img src="docs/screenshot/demo-home.png" width="45%" />
+    <img src="docs/screenshot/demo-icons.png" width="45%" />
 </center>
 <center>
-    <img src="docs/screenshot/demo-403.png" width="49%" />
-    <img src="docs/screenshot/demo-404.png" width="49%" />
+    <img src="docs/screenshot/demo-403.png" width="45%" />
+    <img src="docs/screenshot/demo-404.png" width="45%" />
 </center>
 
 <center>
-    <img src="docs/screenshot/demo-chart.png" width="98%"/>
+    <img src="docs/screenshot/demo-chart.png" width="90%"/>
 </center>
