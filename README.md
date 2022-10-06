@@ -43,15 +43,16 @@ npm run build
 
 </div>
 
-<center>
-    <img src="docs/screenshot/demo-home.png" width="45%" />
-    <img src="docs/screenshot/demo-icons.png" width="45%" />
-</center>
-<center>
-    <img src="docs/screenshot/demo-403.png" width="45%" />
-    <img src="docs/screenshot/demo-404.png" width="45%" />
-</center>
+![](docs/screenshot/demo-home.png)
 
-<center>
-    <img src="docs/screenshot/demo-chart.png" width="90%"/>
-</center>
+![](docs/screenshot/demo-icons.png)
+
+![](docs/screenshot/demo-chart.png)
+
+![](docs/screenshot/demo-403.png)
+
+## 多页面演示
+
+### 会议室预约系统
+
+![](docs/screenshot/meeting.gif)
