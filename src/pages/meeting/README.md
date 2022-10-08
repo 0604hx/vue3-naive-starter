@@ -27,6 +27,7 @@ summary|说明|String|否||详细说明信息
 -|-|-|-|-|-
 title|String|是||会议主题
 roomId|String|是||会议室编号
+room|String|是||会议室名称
 uid|String|是||预约人ID
 uname|String|是||预约人名称
 begin|String|是||开始时间，格式为 HH:mm

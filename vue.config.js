@@ -36,15 +36,9 @@ let devServer = {
 }
 
 let pages = {
-    index: {
-        entry: 'src/main.js'
-    },
-    meeting: {
-        entry: 'src/pages/meeting/main.js',
-        // template: 'public/index.html',
-        // filename: 'client/client.html',
-        // chunks: ['chunk-vendors', 'chunk-common', 'client']
-    }
+    index: { entry: 'src/main.js' },
+    meeting: { entry: 'src/pages/meeting/main.js' },
+    project: { entry: 'src/pages/project/main.js' }
 }
 
 /**

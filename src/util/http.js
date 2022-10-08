@@ -1,8 +1,8 @@
 /*
  * @Author: 集成显卡
  * @Date: 2022-08-23 13:04:59
- * @Last Modified by: 集成显卡@CIB
- * @Last Modified time: 2022-09-08 11:19:49
+ * @Last Modified by: 集成显卡
+ * @Last Modified time: 2022-10-08 16:46:43
  *
  *
  * 注意：
@@ -113,22 +113,74 @@ window.GET=(url,data,onOk,onFail)=>{
  * @param onFail
  * @constructor
  */
-window.RESULT=(url,data,onOk,onFail, useJson=true, headers={})=>{
-    POST(url,data,function (res) {
-        if(res.success === true && onOk) onOk(res)
-        else{
-            //当自定义了异常处理函数，就优先调用，当 onFail 返回 true 时不显示系统级别的错误提示
-            let notShowError = onFail && onFail(res)===true
-            if(!notShowError){
-                M.notice.create({
-                    type:"error",
-                    content: res.message,
-                    title:"数据接口异常",
-                    description: url
-                })
+// window.RESULT=(url,data,onOk,onFail, useJson=true, headers={})=>{
+//     POST(url,data,function (res) {
+//         if(res.success === true && onOk) onOk(res)
+//         else{
+//             //当自定义了异常处理函数，就优先调用，当 onFail 返回 true 时不显示系统级别的错误提示
+//             let notShowError = onFail && onFail(res)===true
+//             if(!notShowError){
+//                 M.notice.create({
+//                     type:"error",
+//                     content: res.message,
+//                     title:"数据接口异常",
+//                     description: url
+//                 })
+//             }
+//         }
+//     },onFail, useJson, headers)
+// }
+
+/**
+ * 对于返回 Result 对象的请求封装
+ * @param {*} url   请求地址
+ * @param {*} data  参数
+ * @param {*} onOk  请求成功后回调函数
+ * @param {*} ps    额外设置
+ *                      fail    请求失败后的回调函数
+ *                      json    是否以 JSON 格式提交参数
+ *                      headers 自定义请求头
+ *                      loading 加载中的开关（RefImpl 类型），在开始请求时设置为 true，请求结束（无论成功与否）都设置为 false
+ */
+window.RESULT=(url,data,onOk, ps={})=>{
+    ps = Object.assign(
+        {
+            fail (){},          //失败时的回调函数
+            json: true,         //是否以 JSON Body 形式提交参数
+            headers:{},         //自定义请求头
+            loading:undefined   //加载中开关
+        },
+        ps
+    )
+    if(ps.loading)  ps.loading.value = true
+
+    POST(
+        url,data,
+        function (res) {
+            if(ps.loading)  ps.loading.value = false
+
+            if(res.success === true && onOk) onOk(res)
+            else{
+                //当自定义了异常处理函数，就优先调用，当 onFail 返回 true 时不显示系统级别的错误提示
+                let notShowError = onFail && onFail(res)===true
+                if(!notShowError){
+                    M.notice.create({
+                        type:"error",
+                        content: res.message,
+                        title:"数据接口异常",
+                        description: url
+                    })
+                }
             }
-        }
-    },onFail, useJson, headers)
+        },
+        function (e){
+            if(ps.loading)  ps.loading.value = false
+
+            if(ps.fail)     ps.fail(e)
+        },
+        ps.json,
+        ps.headers
+    )
 }
 
 /**
@@ -138,7 +190,7 @@ window.RESULT=(url,data,onOk,onFail, useJson=true, headers={})=>{
 window.UPLOAD = (url, data, onOk, onFail)=>{
     let form = new FormData()
     Object.keys(data).forEach(k=> form.append(k, data[k]))
-    RESULT(url, form, onOk, onFail, true, {'Content-Type': "multipart/form-data"})
+    RESULT(url, form, onOk, {fail: onFail, json: true, headers: {'Content-Type': "multipart/form-data"}} )
 }
 
 /**

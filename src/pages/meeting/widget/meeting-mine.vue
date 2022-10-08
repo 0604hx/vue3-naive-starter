@@ -47,11 +47,7 @@
         show.value = true
 
         if(beans.value.length==0){
-            loading.value = true
-            RESULT("/booking/meeting/mine", {size}, d=> {
-                beans.value = d.data
-                loading.value = false
-            })
+            RESULT("/booking/meeting/mine", {size}, d=>beans.value = d.data, { loading })
         }
     }
 
