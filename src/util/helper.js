@@ -2,7 +2,7 @@
  * @Author: 0604hx/集成显卡
  * @Date: 2022-03-20 22:39:28
  * @Last Modified by: 集成显卡
- * @Last Modified time: 2022-09-30 12:29:02
+ * @Last Modified time: 2022-10-09 14:51:32
  *
  * 本工具类主要是提供组件创建功能
  *
@@ -104,6 +104,32 @@ window.H = window.H || {
             }
         }
         return newWin
+    },
+    /**
+     * 保存内容到文件
+     * @param {*} blob 
+     * @param {*} fileName 
+     */
+    saveToFile(blob, fileName = "下载文件.txt") {
+        if (!(!!blob && blob.toString() == '[object Blob]')) {
+            blob = new Blob([blob])
+        }
+        let link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)    // 创建下载的链接
+        link.download = fileName                        // 下载后文件名
+        link.style.display = 'none'
+        document.body.appendChild(link)
+        link.click()                                    // 点击下载
+        window.URL.revokeObjectURL(link.href)           // 释放掉blob对象
+        document.body.removeChild(link)                 // 下载完成移除元素
+    },
+    /**
+     * 保存到 CSV 默认编码为 UTF-8
+     * @param {*} text 
+     * @param {*} fileName 
+     */
+    saveToCSV(text, fileName = "下载文件.csv") {
+        this.saveToFile(new Blob([Array.isArray(text) ? text.join("\n") : text], { type: "application/csv;charset=utf-8" }), fileName)
     }
 }
 

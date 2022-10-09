@@ -25,20 +25,26 @@ let devServer = {
             errors: true
         }
     },
-    proxy: {
-        '/kaoping': {
-            target: "http://localhost:11020",
-            changeOrigin: true,
-            secure: false
-            //ws: true,//websocket支持
-        }
-    }
+    proxy: (() => {
+        let targets = {}    //url 前缀 与 映射地址，如："/booking" : "http://localhost:8080"
+
+        let proxy = {}
+        Object.keys(targets).forEach(k => {
+            proxy[k] = {
+                target: targets[k],
+                changeOrigin: true,
+                secure: false
+                //ws: true,//websocket支持
+            }
+        })
+        return proxy
+    })()
 }
 
 let pages = {
-    index: { entry: 'src/main.js' },
-    meeting: { entry: 'src/pages/meeting/main.js' },
-    project: { entry: 'src/pages/project/main.js' }
+    index   : 'src/main.js',
+    meeting : { entry: 'src/pages/meeting/main.js', title:"会议室预约管理系统" },
+    project : { entry: 'src/pages/project/main.js', title:"IT 项目管理系统" }
 }
 
 /**
@@ -87,16 +93,17 @@ module.exports = {
         }
     },
     devServer,
-    chainWebpack: (config) => {
-        if(isProduction){
-            // 在 html 中注入参数变量
-            config.plugin('html').use(require("html-webpack-plugin")).tap((args) => {
-                // 在这里
-                args[0].title = `${pkg.appName}`
-                args[0].version = VERSION
-                return args
-            })
-        }
-        return config
-    }
+    // chainWebpack: (config) => {
+    //     if(isProduction){
+    //         // 在 html 中注入参数变量
+    //         config.plugin('html').use(require("html-webpack-plugin")).tap((args) => {
+    //             console.debug(args)
+    //             // 在这里
+    //             args.title = `${pkg.appName}`
+    //             args.version = VERSION
+    //             return args
+    //         })
+    //     }
+    //     return config
+    // }
 }
