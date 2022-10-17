@@ -54,6 +54,33 @@ module.exports = {
     pages,
     productionSourceMap: false,
     configureWebpack: config => {
+        /**
+         * 构建提速设置
+         *  配置如下：
+            Windows 11 家庭中文版
+            版本	21H2
+            操作系统版本	22000.1098
+            处理器	11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz   3.11 GHz
+            机带 RAM	16.0 GB (15.8 GB 可用)
+
+            构建速度约为 2100ms（未优化前为 14000 ms 左右）
+         */
+        //Webpack5 简单的配置 cache 属性可大大提高构建速度（约 600% 的加速）
+        config.cache = {
+            type: 'filesystem'
+        },
+        config.optimization.concatenateModules = false
+        config.optimization.usedExports = false
+        // 优化压缩工具提速可忽略不计...
+        // npm i -D esbuild
+        // const TerserPlugin = require('terser-webpack-plugin')
+        // config.optimization.minimizer = [
+        //     new TerserPlugin({
+        //         minify: TerserPlugin.esbuildMinify,
+        //         terserOptions: {},
+        //     })
+        // ]
+
         config.resolve = {
             extensions: ['.js', '.vue', '.json', ".css"],
             alias: {
@@ -91,6 +118,7 @@ module.exports = {
             __filename: true,
             __dirname: true
         }
+        // console.debug(config)
     },
     devServer,
     // chainWebpack: (config) => {
