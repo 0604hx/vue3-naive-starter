@@ -18,7 +18,7 @@
 <script setup>
     import { ref, createVNode } from 'vue'
     import { RouterLink } from "vue-router"
-    import { Home, Cog as Settings, Parking,GlobeAsia, Icons, ChartPie } from "@vicons/fa"
+    import { Home, Cog as Settings, Parking,GlobeAsia, Icons, ChartPie, UserShield } from "@vicons/fa"
 
     import Banner from "@CC/Banner.vue"
     import AppNavigation from "@C/Navigation.vue"
@@ -28,7 +28,7 @@
             label: () => createVNode(RouterLink, { to: { name: routeName } }, ()=>text),
             key: routeName,
             icon: H.buildIcon2(icon)
-         }
+        }
     }
 
     let appName = _APPNAME_
@@ -36,6 +36,7 @@
         menuItem("demo-home", "首页", Home),
         menuItem("demo-icon", "图标汇总", Icons),
         menuItem("demo-chart","Echarts 5", ChartPie),
+        menuItem("demo-role","角色权限控制", UserShield),
         {
             label:"通用页面", key:"", icon:H.buildIcon2(GlobeAsia),
             children:[

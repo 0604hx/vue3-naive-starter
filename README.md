@@ -56,3 +56,13 @@ npm run build
 ### 会议室预约系统
 
 ![](docs/screenshot/meeting.gif)
+
+<div align=center>
+
+## 更新记录 / CHANGELOG 🕒
+
+</div>
+
+## 2022-11-02
+
+- [x] 增加自定义指令`权限控制`

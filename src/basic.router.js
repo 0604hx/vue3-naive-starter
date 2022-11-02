@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 import WindowView from "@V/Window.vue"
+import { checkRole } from "@S/Auth"
 
 let isProduction = process.env.NODE_ENV == 'production'
 
@@ -52,14 +53,26 @@ export default function ( mainComponent, ps) {
         routes
     })
 
-    // router.beforeEach((to, from, next) => {
-    //   if(to.name != P401 && !window.TOKEN) {
-    //     console.debug(`检测到用户未登录，即将跳转到 401 页面`)
-    //     next({name: P401})
-    //   }
-    //   else
-    //     next()
-    // })
+    router.beforeEach((to, from, next) => {
+        //判断权限
+        if (to.meta.role && !checkRole(to.meta.role)) {
+            console.debug(`☹ ${to.name} (${to.fullPath}) 需要权限 ${to.meta.role}，请联系管理员授权 ☹`)
+            return next({ name: P403 })
+        }
+        next()
+        // if (to.name != P401 && !window.TOKEN) {
+        //     console.debug(`检测到用户未登录，即将跳转到 401 页面`)
+        //     next({ name: P401 })
+        // }
+        // else {
+        //     //判断权限
+        //     if (to.meta.role && !checkRole(to.meta.role)) {
+        //         console.debug(`☹ ${to.name} (${to.fullPath}) 需要权限 ${to.meta.role}，请联系管理员授权 ☹`)
+        //         next({ name: P403 })
+        //     }
+        //     next()
+        // }
+    })
 
     return router
 }

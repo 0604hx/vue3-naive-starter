@@ -9,6 +9,8 @@ import '@T/naive.less'
 // 全局工具配置
 import "@U"
 
+import { setupDirectives } from '@C/directive'
+
 const isProduction = process.env.NODE_ENV == 'production'
 
 export function initApp(routerPath, enables={}) {
@@ -20,7 +22,6 @@ export function initApp(routerPath, enables={}) {
     }
 
     const app = createApp(App)
-    app.use(naive)
 
     if(enables.store){
         //============================================================
@@ -39,6 +40,9 @@ export function initApp(routerPath, enables={}) {
         if(!isProduction)   console.debug(`从 ${routerPath} 加载路由信息...`)
         app.use(router)
     }
+
+    app.use(naive)
+    setupDirectives(app)
 
     app.mount('#app')
 
