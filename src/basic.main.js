@@ -13,7 +13,55 @@ import { setupDirectives } from '@C/directive'
 
 const isProduction = process.env.NODE_ENV == 'production'
 
-export function initApp(routerPath, enables={}) {
+/**
+ * 向 window 注入全局对象 Config
+ * @param {*} ps
+ */
+const customConfig = (ps = {}) => {
+    window.Config = Object.assign(
+        {
+            JSON: false,                                    //是否以 JSON 格式发送请求，默认 false
+
+            WATERMARK: true,                                //是否显示水印
+            AUTH_URL: "",                                   //远程授权信息获取地址
+            UI_NOTICE_PLACEMENT: "top-right",               //通知框弹出位置
+            appName: window.document.title || _APPNAME_,    //应用名称
+        },
+        ps
+    )
+}
+
+const loadRole = url => new Promise((onOk, onFail) => {
+    RESULT(
+        url, {},
+        d => {
+            let account = Object.assign({ roles: [] }, d.data)
+            //锁定用户对象，不支持修改
+            Object.keys(account).forEach(k => {
+                Object.defineProperty(account, k, { value: account[k], writable: false, enumerable: true, configurable: true })
+            })
+            window.User = account
+            onOk()
+        },
+        {
+            fail(e) {
+                // throw Error(`无法从 ${url} 获取用户信息`, e)
+                console.error(`无法从 ${url} 获取用户信息：`, e)
+                onFail(`无法从 ${url} 获取用户信息`)
+                return true
+            }
+        }
+    )
+})
+
+/**
+ * 初始化应用
+ * @param {*} routerPath    路由对象
+ * @param {*} config        自定义配置，详见 customConfig 方法
+ * @param {*} enables       开关项
+ */
+export async function initApp(routerPath, config={}, enables={}) {
+    customConfig(config)
     enables = Object.assign({banner:true, store: true}, enables)
     if(process.env.NODE_ENV == "test"){
         window.isMock = true
@@ -30,6 +78,10 @@ export function initApp(routerPath, enables={}) {
         //============================================================
         const { setupStore } = require("@/store")
         setupStore(app)
+    }
+
+    if(window.Config.AUTH_URL){
+        await loadRole(window.Config.AUTH_URL).catch(e=> setTimeout(()=> M.notice.error(e), 1000))
     }
 
     if(typeof(routerPath) == 'object' && typeof(routerPath.beforeEach)=='function'){

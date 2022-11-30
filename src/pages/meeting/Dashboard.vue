@@ -3,12 +3,10 @@
         <n-text underline>本年度</n-text>
         会议室共被预约 <n-text type="info" class="text-5xl">110</n-text> 次，
         最热门会议室是 <n-text type="info" class="text-5xl">4楼报告厅</n-text>（被预约 <n-text type="info" class="text-3xl">78</n-text> 次 ），
-        <n-text type="info" class="text-5xl">340416/集成显卡</n-text> 预约最多次
+        <n-text type="info" class="text-5xl">集成显卡</n-text> 预约最多次
     </div> -->
     <n-card>
-        <n-spin size="small" :show="loading">
-哈哈哈
-            </n-spin>
+        <n-spin size="small" :show="loading"></n-spin>
         <template #header>
             统计数据
             <n-text :depth="3" class="text-xs ml-2">统计范围为本年度</n-text>

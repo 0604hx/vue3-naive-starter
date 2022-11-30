@@ -2,7 +2,7 @@
  * @Author: 集成显卡
  * @Date: 2022-08-23 13:04:59
  * @Last Modified by: 集成显卡
- * @Last Modified time: 2022-10-08 16:46:43
+ * @Last Modified time: 2022-11-25 16:04:43
  *
  *
  * 注意：
@@ -25,18 +25,6 @@ if(process.env.NODE_ENV == 'production'){
     if(!!token) axios.defaults.headers.common[UA] = window.TOKEN = token
 }
 else {
-    /**
-     * 构建适配于大数据平台跳转到第三方应用的token
-     * @param {*} id
-     * @param {*} name
-     * @param {*} ip
-     * @returns
-     */
-    window.buildToken = (id = "340416", name = "曾行明", ip = "127.0.0.1")=>{
-        let text = `${id}-${name}-${ip}-${new Date().getTime()}`
-        return btoa(encodeURI(text))
-    }
-
     window.changeUser = value=>{
         let user = typeof(value)=='object'? value : {id: value, name:"集成显卡", ip:"127.0.0.1"}
 
@@ -45,7 +33,7 @@ else {
         console.debug(`[测试环境] 切换用户 TOKEN 为：${token} `)
     }
 
-    changeUser("340416")
+    changeUser("admin")
 }
 
 let _dealWithErrorRequest = (url, error, onFail)=>{

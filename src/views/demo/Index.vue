@@ -6,6 +6,14 @@
         <a href="https://cn.vuejs.org/" target="_blank"><n-tag type="info" class="cursor-pointer">VUE3</n-tag></a>、
         <a href="https://www.naiveui.com" target="_blank"><n-tag type="info" class="cursor-pointer">Naive UI</n-tag></a>
         的快速开发脚手架。
+
+        <n-descriptions class="mt-4"  label-placement="left" bordered :column="4" title="生产环境依赖" size="small">
+            <n-descriptions-item v-for="(version, name) in dependencies" :label="name">{{version}}</n-descriptions-item>
+        </n-descriptions>
+
+        <n-descriptions class="mt-4" label-placement="left" bordered :column="4" title="开发环境依赖" size="small">
+            <n-descriptions-item v-for="(version, name) in devDependencies" :label="name">{{version}}</n-descriptions-item>
+        </n-descriptions>
     </n-card>
 
     <n-card class="mt-4">
@@ -33,7 +41,7 @@
         </n-space>
     </n-card>
 
-    <n-card class="mt-4">
+    <n-card class="mt-2">
         <template #header><Windows class="icon" /> 多页面</template>
 
         <n-space size="large" class="text-center">
@@ -49,7 +57,9 @@
 
 <script setup>
     import { ref,onMounted } from 'vue'
-    import { Cog, InfoCircle,Bell, CommentRegular,CommentAltRegular,WindowMaximize, Windows } from "@vicons/fa"
+    import { Cog, InfoCircle,Bell, CommentRegular,CommentAltRegular,WindowMaximize, Windows, Code } from "@vicons/fa"
+
+    const { dependencies, devDependencies } = _APP_INFO_
 
     let showMessage = text=> M.ok(text)
     let showNotice = ()=> M.notice.ok('后台作业已完成，共耗时 13.4 秒，请刷新页面以查看结果', '操作完成')
@@ -68,8 +78,4 @@
     let jump = url=>{
         location.href = url
     }
-
-    onMounted(() => {
-
-    })
 </script>

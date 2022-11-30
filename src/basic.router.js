@@ -32,7 +32,10 @@ export default function ( mainComponent, ps) {
         ]
     }
 
-    let blankRouter = {
+    /**
+     * 通过新窗口打开的路由（仅包含页面 footer ）
+     */
+    let windowRouter = {
         path: '/',
         component: WindowView,
         children:  ps.windowRoutes
@@ -41,7 +44,7 @@ export default function ( mainComponent, ps) {
     let routes = [
         ...ps.blankRoutes,
         appRouter,
-        blankRouter,
+        windowRouter,
         {
             path: "/*",
             redirect: "/404"
@@ -59,6 +62,7 @@ export default function ( mainComponent, ps) {
             console.debug(`☹ ${to.name} (${to.fullPath}) 需要权限 ${to.meta.role}，请联系管理员授权 ☹`)
             return next({ name: P403 })
         }
+        window.document.title = (to.meta.title?`${to.meta.title} · `:"") + window.Config.appName
         next()
         // if (to.name != P401 && !window.TOKEN) {
         //     console.debug(`检测到用户未登录，即将跳转到 401 页面`)

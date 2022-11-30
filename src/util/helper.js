@@ -2,7 +2,7 @@
  * @Author: 0604hx/集成显卡
  * @Date: 2022-03-20 22:39:28
  * @Last Modified by: 集成显卡
- * @Last Modified time: 2022-10-09 14:51:32
+ * @Last Modified time: 2022-11-25 16:23:04
  *
  * 本工具类主要是提供组件创建功能
  *
@@ -81,13 +81,13 @@ window.H = window.H || {
      * @param {*} list
      */
     toOptions (list, disableFun=()=>false){
-        return (Array.isArray(list)? list:[list]).map(v=>{
-            return {
+        return (Array.isArray(list)? list:[list]).map(v=>(
+            {
                 label:v,
                 value:v,
                 disabled: disableFun(v)
             }
-        })
+        ))
     },
     html (html){
         return ()=>createVNode('div', {innerHTML: html })

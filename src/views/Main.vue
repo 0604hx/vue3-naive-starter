@@ -1,7 +1,7 @@
 <template>
     <n-layout position="absolute">
         <n-layout-header style="padding: 4px; height: 50px;" bordered>
-            <app-navigation :menus="menus" title-width="320px">
+            <app-navigation :menus="menus" title-width="280px">
                 {{appName}}
             </app-navigation>
         </n-layout-header>

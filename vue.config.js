@@ -110,7 +110,8 @@ module.exports = {
             new webpack.DefinePlugin({
                 "_APPNAME_": JSON.stringify(pkg.appName),
                 "_VERSION_": JSON.stringify(VERSION),
-                "_MODULE_": JSON.stringify(moduleName)
+                "_MODULE_": JSON.stringify(moduleName),
+                "_APP_INFO_": JSON.stringify({ dependencies: pkg.dependencies, devDependencies: pkg.devDependencies })
             })
         )
 
