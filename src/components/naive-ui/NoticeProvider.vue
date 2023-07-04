@@ -1,6 +1,7 @@
 <template></template>
 <script setup>
-    import { useMessage, useNotification, useDialog, useLoadingBar } from "naive-ui"
+    import { h } from 'vue'
+    import { useMessage, useNotification, useDialog, useLoadingBar, NInput, NInputNumber, NText } from "naive-ui"
 
     const notification  = useNotification()
     const message       = useMessage()
@@ -77,6 +78,44 @@
         },
         closeDialog (){
             dialog.destroyAll()
+        },
+
+        /**
+         * 弹出输入框
+         *
+         * naive-ui 没有提供类似的工具，自行实现
+         * 这里赞一下 https://layui.dev/docs/2.8/layer/#type
+         *
+         * @param {String}  tip 标题
+         * @param {Object}  ps  配置项
+         */
+        prompt (title="请输入", ps={}) {
+            ps = Object.assign({theme:'info', icon:false, type:'text'}, ps)
+            return new Promise((ok)=>{
+                let value = ps.value
+                dialog.create({
+                    style: ps.style,
+                    title,
+                    bordered: false,
+                    showIcon: ps.icon,
+                    autoFocus:true,
+                    maskClosable: false,
+                    type: ps.theme,
+                    positiveText: ps.okText || '确定',
+                    negativeText: ps.cancelText || '取消',
+                    content: ()=>[
+                        h(ps.type=='number'? NInputNumber : NInput, {
+                            defaultValue: value,
+                            placeholder: ps.placeholder,
+                            type: ps.type,
+                            rows: ps.type=='textarea'?(ps.rows??5):1,
+                            "on-update:value": v=> value = v,
+                        }),
+                        ps.message? h('div',{class:"mt-2"}, h(NText, {depth:3}, UI.html(ps.message))) : undefined
+                    ],
+                    onPositiveClick: ()=> ok(value)
+                })
+            })
         }
     }
 </script>

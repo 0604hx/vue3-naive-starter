@@ -3,6 +3,14 @@ import naive from 'naive-ui'
 
 import App from './App.vue'
 
+/**
+ * 如果不想引入 tailwind 相关的插件而是直接引入 tailwind-simple.css
+ *
+ * import '@T/tailwind.css'
+ *
+ * 删除 tailwind 相关的依赖：tailwindcss、autoprefixer、postcss
+ * 还有文件 postcss.config.js、tailwind.config.js
+ */
 import '@T/tailwind.css'
 import '@T/naive.less'
 
@@ -113,7 +121,7 @@ export async function initApp(routerPath, config={}, enables={}) {
                 type: 'error',
                 style:{width:"640px"},
                 title:"应用执行出错",
-                content: H.html(`
+                content: UI.html(`
                     <div class="text-lg">
                         <div>很遗憾，当前应用执行过程出现无法自处理的异常 🐛</div>
                         <div>请尝试刷新页面重试，如果问题依旧请联系技术人员进行处理</div>

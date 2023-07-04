@@ -46,9 +46,9 @@
         { value: 6, label:"3小时" }
     ]
     let hourOptions = computed(()=> {
-        let time = D.datetime()
+        let time = H.date.datetime()
         // 超过当前日期的时间段不能选择噢
-        return H.toOptions(props.hours, v=> `${bean.value.day} ${v}:00` < time)
+        return UI.toOptions(props.hours, v=> `${bean.value.day} ${v}:00` < time)
     })
     let bean = ref({})
 

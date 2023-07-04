@@ -54,7 +54,7 @@
     let mine = ref()
 
     let toHour = i=>i<10?("0"+i):i
-    let getDay = ()=> D.date(day.value)
+    let getDay = ()=> H.date.date(day.value)
 
     let init = ps =>{
         let _hours = []
@@ -88,7 +88,7 @@
 
     let toCreate = (room, time, _cell)=>{
         let day = getDay()
-        if(D.diff(day) < 0)   return M.warn(`不能预约以前的日期噢`)
+        if(H.date.diff(day) < 0)   return M.warn(`不能预约以前的日期噢`)
 
         console.debug(room, time)
         let dialog = M.dialog({

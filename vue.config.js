@@ -17,7 +17,7 @@ let VERSION = (()=>{
 
 let devServer = {
     host: "0.0.0.0",
-    port: 3000,
+    port: 10000,
     hot: true, // 热更新
     client: {
         overlay: {
@@ -71,15 +71,6 @@ module.exports = {
         },
         config.optimization.concatenateModules = false
         config.optimization.usedExports = false
-        // 优化压缩工具提速可忽略不计...
-        // npm i -D esbuild
-        // const TerserPlugin = require('terser-webpack-plugin')
-        // config.optimization.minimizer = [
-        //     new TerserPlugin({
-        //         minify: TerserPlugin.esbuildMinify,
-        //         terserOptions: {},
-        //     })
-        // ]
 
         config.resolve = {
             extensions: ['.js', '.vue', '.json', ".css"],

@@ -23,8 +23,8 @@
     import AppNavigation from "@C/Navigation.vue"
 
     let menus = [
-        H.menuItem("home", "首页", Home),
-        H.menuItem("room", "会议室管理", LaptopHouse),
-        H.menuItem("meeting", "预约审核", ClockRegular),
+        UI.menuItem("home", "首页", Home),
+        UI.menuItem("room", "会议室管理", LaptopHouse),
+        UI.menuItem("meeting", "预约审核", ClockRegular),
     ]
 </script>

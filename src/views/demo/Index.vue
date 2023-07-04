@@ -68,7 +68,7 @@
         style:{width:"640px"},
         type:"info",
         title:"什么是 Vue？",
-        content: H.html(`
+        content: UI.html(`
         Vue (发音为 /vjuː/，类似 view) 是一款用于构建用户界面的 JavaScript 框架。它基于标准 HTML、CSS 和 JavaScript 构建，并提供了一套声明式的、组件化的编程模型，帮助你高效地开发用户界面。无论是简单还是复杂的界面，Vue 都可以胜任。
         <div class="mt-2">Vue 的两个核心功能：</div>
         <div class="mt-2"><b class="text-green-600">声明式渲染</b>：Vue 基于标准 HTML 拓展了一套模板语法，使得我们可以声明式地描述最终输出的 HTML 和 JavaScript 状态之间的关系。</div>

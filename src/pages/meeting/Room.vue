@@ -42,11 +42,11 @@
         { title:"说明信息", key:"summary", ellipsis:true},
         {
             width:100, align:"center",
-            title: ()=> createVNode(NButton, {type:"success", size:"small", circle:true, onClick: ()=>toAdd()}, H.buildIcon2(Plus)),
+            title: ()=> createVNode(NButton, {type:"success", size:"small", circle:true, onClick: ()=>toAdd()}, UI.buildIcon2(Plus)),
             render(row, rowIndex) {
                 return [
-                    H.iconBtn(Edit, ()=>toAdd(row)),
-                    H.iconBtn(TrashAlt, ()=>toDel(row, rowIndex), {title:"删除该会议室",type:"error"}),
+                    UI.iconBtn(Edit, ()=>toAdd(row)),
+                    UI.iconBtn(TrashAlt, ()=>toDel(row, rowIndex), {title:"删除该会议室",type:"error"}),
                 ]
             }
         }
@@ -60,7 +60,7 @@
     }
     let toDel = (row, i)=> M.confirm(
         "删除会议室",
-        H.html(`确定删除会议室 ⌈${row.name}⌋ 吗？ <div class="mt-3">注意：该操作不可逆，请慎重操作</div>`),
+        UI.html(`确定删除会议室 ⌈${row.name}⌋ 吗？ <div class="mt-3">注意：该操作不可逆，请慎重操作</div>`),
         ()=>{
             RESULT("/booking/room/delete", {id: row.id}, d=> {
                 M.notice.ok(`会议室${row.name}已删除`)

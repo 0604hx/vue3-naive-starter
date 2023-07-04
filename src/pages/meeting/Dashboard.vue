@@ -67,7 +67,7 @@
 
     let refresh = ()=>{
         RESULT("/booking/meeting/dashboard", {}, d=>{
-            let day = D.date()
+            let day = H.date.date()
             let { rooms, meetings } = d.data
             data.total  = meetings.length
             data.today  = meetings.filter(m=>m.day==day).length

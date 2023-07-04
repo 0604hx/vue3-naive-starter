@@ -36,8 +36,8 @@
             width:100, align:"center",
             render(row, rowIndex) {
                 return [
-                    H.iconBtn(Edit, ()=>toAdd(row)),
-                    H.iconBtn(TrashAlt, ()=>toDel(row, rowIndex), {title:"删除该会议室",type:"error"}),
+                    UI.iconBtn(Edit, ()=>toAdd(row)),
+                    UI.iconBtn(TrashAlt, ()=>toDel(row, rowIndex), {title:"删除该会议室",type:"error"}),
                 ]
             }
         }

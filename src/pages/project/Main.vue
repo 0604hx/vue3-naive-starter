@@ -23,6 +23,6 @@
     import AppNavigation from "@C/Navigation.vue"
 
     let menus = [
-        H.menuItem("home", "首页", Home),
+        UI.menuItem("home", "首页", Home),
     ]
 </script>

@@ -42,11 +42,8 @@
         // { type:"divider"},
         { type:"render", render: ()=>createVNode(Theme) },
         { type:"divider"},
-        // { label: '创建新脚本',key: 10, icon: ()=>H.buildIcon("plus-circle")},
-        { label: '重载主界面',key: 1, icon: ()=>H.buildIcon(RedoAlt)},
-        // { label: '打开数据目录',key: 2, icon: ()=>H.buildIcon("folder")},
-        // { label: '系统设置',key: 3, icon: ()=>H.buildIcon("cog")},
-        { label: '退出平台',key: 4, icon: ()=>H.buildIcon(PowerOff, {class:"text-red-500"})}
+        { label: '重载主界面',key: 1, icon: ()=>UI.buildIcon(RedoAlt)},
+        { label: '退出平台',key: 4, icon: ()=>UI.buildIcon(PowerOff, {class:"text-red-500"})}
     ]
 
     //头像下拉菜单

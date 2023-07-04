@@ -1,5 +1,7 @@
-import D from "./date"
-import H from "./helper"
+import * as H from "./module"
 import './http'
 
-export default { D, H }
+import UI from "./ui-tool"
+
+window.H  = H
+window.UI = UI

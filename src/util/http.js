@@ -2,7 +2,7 @@
  * @Author: 集成显卡
  * @Date: 2022-08-23 13:04:59
  * @Last Modified by: 集成显卡
- * @Last Modified time: 2022-11-25 16:04:43
+ * @Last Modified time: 2023-07-04 15:20:51
  *
  *
  * 注意：
@@ -243,7 +243,7 @@ window.DOWNLOAD=(url, data, onOk, onFail,json=false, fName=null, useGet=false)=>
                 //如果 onFail 返回 false 则不显示错误窗口
                 let showErrorMsg = !onFail || (onFail && onFail(result)!=false)
                 if(showErrorMsg){
-                    let content = H.html(`<div class="error">${result.message}</div><br>
+                    let content = UI.html(`<div class="error">${result.message}</div><br>
                     <span class="h">1. 请确认您提交的参数是否正确后再重试<br>2. 若错误依旧请联系<b class="info">信息科技部</b>。</span>`
                     )
                     M.dialog({content, title:"文件下载失败（服务器响应内容如下）", type:"error"})
@@ -252,7 +252,7 @@ window.DOWNLOAD=(url, data, onOk, onFail,json=false, fName=null, useGet=false)=>
             fileReader.readAsText(response.data)
         }
         else {
-            fileName = fileName || ("文件下载-"+D.datetime(D.now(), "YYYYMMDDHHmmss"))
+            fileName = fileName || ("文件下载-"+H.date.datetime(Date.now(), "YYYYMMDDHHmmss"))
 
             let link = document.createElement('a')
             // 非IE下载

@@ -27,7 +27,7 @@
         return {
             label: () => createVNode(RouterLink, { to: { name: routeName } }, ()=>text),
             key: routeName,
-            icon: H.buildIcon2(icon)
+            icon: UI.buildIcon2(icon)
         }
     }
 
@@ -38,7 +38,7 @@
         menuItem("demo-chart","Echarts 5", ChartPie),
         menuItem("demo-role","角色权限控制", UserShield),
         {
-            label:"通用页面", key:"", icon:H.buildIcon2(GlobeAsia),
+            label:"通用页面", key:"", icon:UI.buildIcon2(GlobeAsia),
             children:[
                 menuItem("401", "401（请先登录）", Parking),
                 menuItem("403", "403（访问受限）", Parking),
